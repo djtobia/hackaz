@@ -103,58 +103,47 @@
         android:layout_marginTop="27dp"
         android:text="@string/annoyances" />
 
-    <RadioButton
-        android:id="@+id/vibrateRB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView6"
-        android:layout_alignStart="@+id/textView6"
-        android:layout_below="@+id/textView6"
-        android:layout_marginTop="17dp"
-        android:text="@string/Vibrations" />
-
-    <RadioButton
-        android:id="@+id/soundRB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/vibrateRB"
-        android:layout_alignBottom="@+id/vibrateRB"
-        android:layout_alignLeft="@+id/popupsRB"
-        android:layout_alignStart="@+id/popupsRB"
-        android:text="@string/Sound" />
-
-    <RadioButton
-        android:id="@+id/physicalActionRB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/vibrateRB"
-        android:layout_alignStart="@+id/vibrateRB"
-        android:layout_below="@+id/vibrateRB"
-        android:layout_marginTop="22dp"
-        android:text="@string/Actions" />
-
-    <RadioButton
-        android:id="@+id/popupsRB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/physicalActionRB"
-        android:layout_alignBottom="@+id/physicalActionRB"
-        android:layout_alignEnd="@+id/textView"
-        android:layout_alignRight="@+id/textView"
-        android:text="@string/Popups" />
-
     <Button
         android:id="@+id/goButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="100dp"
-        android:layout_toEndOf="@+id/vibrateRB"
+        android:layout_toEndOf="@+id/vibrate"
         android:layout_toRightOf="@+id/vibrateRB"
         android:text="Start" />
 
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView6"
+        android:layout_alignStart="@+id/textView6"
+        android:layout_below="@+id/textView6"
+        android:layout_marginTop="21dp"
+        android:text="Vibration" />
+
+    <CheckBox
+        android:id="@+id/checkBox2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/textView5"
+        android:layout_alignRight="@+id/textView5"
+        android:layout_alignTop="@+id/checkBox"
+        android:text="Pop Up" />
+
+    <CheckBox
+        android:id="@+id/checkBox3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/checkBox"
+        android:layout_alignStart="@+id/checkBox"
+        android:layout_centerVertical="true"
+        android:text="Physical Activity" />
+
+
     <TextView
-        android:id="@+id/timeLeft"
+        android:id="@+id/vibrationCB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/goButton"
