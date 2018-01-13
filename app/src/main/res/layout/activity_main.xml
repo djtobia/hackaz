@@ -109,7 +109,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="100dp"
-        android:layout_toEndOf="@+id/vibrateRB"
+        android:layout_toEndOf="@+id/vibrate"
         android:layout_toRightOf="@+id/vibrateRB"
         android:text="Start" />
 
@@ -142,9 +142,8 @@
         android:text="Physical Activity" />
 
 
-
     <TextView
-        android:id="@+id/timeLeft"
+        android:id="@+id/vibrationCB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/goButton"
