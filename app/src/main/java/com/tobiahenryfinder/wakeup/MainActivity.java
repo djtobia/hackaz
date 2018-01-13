@@ -3,8 +3,8 @@ package com.tobiahenryfinder.wakeup;
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
+import android.os.CountDownTimer;
 import android.os.Vibrator;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,21 +12,30 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
     private boolean startWakeUp = false;
-    private Vibrator vibrator;
+    public Vibrator vibrator;
+    public CountDownTimer timer;
+    public TextView timeLeft;
+    public Button goButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        final Button goButton = (Button)findViewById(R.id.goButton);
+       // final Button goButton = (Button)findViewById(R.id.goButton);
         final EditText hoursField = (EditText)findViewById(R.id.hoursField);
         final EditText minutesField = (EditText)findViewById(R.id.minutesField);
         final EditText intervalField = (EditText) findViewById(R.id.intervalField);
+        timeLeft = (TextView) findViewById(R.id.timeLeft);
+        goButton =(Button)findViewById(R.id.goButton);;
         RadioButton vibrateRB = (RadioButton) findViewById(R.id.vibrateRB);
         RadioButton soundRB = (RadioButton) findViewById(R.id.soundRB);
         SensorManager sensorManager =(SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -53,10 +62,14 @@ public class MainActivity extends AppCompatActivity {
                     if(!startWakeUp){
                         startWakeUp = true;
                         goButton.setText("Stop");
-                        vibrator.vibrate(1000);
+                        float hours = Float.parseFloat(hoursField.getText().toString());
+                        float minutes = Float.parseFloat(minutesField.getText().toString());
+                        float interval = Float.parseFloat(intervalField.getText().toString());
+                        startKeepThemAwake(hours,minutes,interval);
                     }else{
-                        startWakeUp = false;
-                        goButton.setText("Start");
+
+                        stopKeepThemAwake();
+
                     }
                 }
             }
@@ -80,6 +93,48 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    private void stopKeepThemAwake() {
+        startWakeUp = false;
+        goButton.setText("Start");
+        timer.cancel();
+        timeLeft.setText("");
+    }
+
+    private void startKeepThemAwake(float hours, float minutes, float interval) {
+        float hoursInMilliseconds = (hours * 3600) * 1000;
+        float minutesInMilliseconds = minutes * 60000;
+        final long intervalInMilliseconds = ((long) (interval * 60000));
+        Log.i("intervalInMilli",String.format("%d",intervalInMilliseconds));
+        final long totalTimeInMilliseconds = ((long) (hoursInMilliseconds+minutesInMilliseconds));
+        timer = new CountDownTimer(totalTimeInMilliseconds, 1000) {
+            private long timeStart =   System.currentTimeMillis();
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+                String text = String.format(Locale.getDefault(), "Time Remaining: Hours: %02d  min: %02d sec: %02d",
+                        TimeUnit.MILLISECONDS.toHours(millisUntilFinished) ,TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) % 60,
+                        TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) % 60) ;
+                timeLeft.setText(text);
+
+                Log.i("time passed", String.format("%d",System.currentTimeMillis() - timeStart));
+//                if((System.currentTimeMillis() - timeStart) % intervalInMilliseconds == 0){
+//                    doSomethingAnnoying();
+//                }
+
+            }
+
+            @Override
+            public void onFinish() {
+                timeLeft.setText("YOU DID IT");
+                stopKeepThemAwake();
+            }
+        }.start();
+    }
+
+    private void doSomethingAnnoying() {
+        Log.i("annoying","Doing something annoying");
     }
 
 
