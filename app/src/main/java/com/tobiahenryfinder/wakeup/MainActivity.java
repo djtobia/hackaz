@@ -21,6 +21,7 @@ import android.app.AlertDialog;
 
 
 import java.util.Locale;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
@@ -30,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
     public CountDownTimer timer;
     public TextView timeLeft;
     public Button goButton;
+    public Random rand = new Random(System.currentTimeMillis());
 
-    @RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,14 +44,10 @@ public class MainActivity extends AppCompatActivity {
         final EditText intervalField = (EditText) findViewById(R.id.intervalField);
         timeLeft = (TextView) findViewById(R.id.timeLeft);
         goButton = (Button) findViewById(R.id.goButton);
-        ;
         RadioButton vibrateRB = (RadioButton) findViewById(R.id.vibrateRB);
         RadioButton soundRB = (RadioButton) findViewById(R.id.soundRB);
         SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        Sensor acceleromterSensor = null;
-        if (sensorManager != null) {
-            acceleromterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        }
+        Sensor acceleromterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         RadioButton actionsRB = (RadioButton) findViewById(R.id.physicalActionRB);
         if (acceleromterSensor == null) {
             actionsRB.setEnabled(false);
@@ -95,8 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                     } else {
-
-                        stopKeepThemAwake();
+                        stopKeepThemAwake(false);
 
                     }
                 }
@@ -123,11 +119,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void stopKeepThemAwake() {
+    private void stopKeepThemAwake(boolean didIt) {
         startWakeUp = false;
         goButton.setText("Start");
         timer.cancel();
-        timeLeft.setText("");
+        if (didIt)
+            timeLeft.setText("YOU DID IT");
+        else
+            timeLeft.setText("");
     }
 
     private void startKeepThemAwake(float hours, float minutes, float interval) {
@@ -139,7 +138,6 @@ public class MainActivity extends AppCompatActivity {
         timer = new CountDownTimer(totalTimeInMilliseconds, 1000) {
             private long timeStart = System.currentTimeMillis();
 
-            @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
             @Override
             public void onTick(long millisUntilFinished) {
                 String text = String.format(Locale.getDefault(), "Time Remaining: Hours: %02d  min: %02d sec: %02d",
@@ -148,22 +146,36 @@ public class MainActivity extends AppCompatActivity {
                 timeLeft.setText(text);
 
                 Log.i("time passed", String.format("%d", System.currentTimeMillis() - timeStart));
-//                if((System.currentTimeMillis() - timeStart) % intervalInMilliseconds == 0){
-//                    doSomethingAnnoying();
-//                }
+                if ((System.currentTimeMillis() - timeStart) % intervalInMilliseconds <= 100) {
+                    doSomethingAnnoying();
+                }
 
             }
 
             @Override
             public void onFinish() {
-                timeLeft.setText("YOU DID IT");
-                stopKeepThemAwake();
+                stopKeepThemAwake(true);
+
             }
         }.start();
     }
 
     private void doSomethingAnnoying() {
         Log.i("annoying", "Doing something annoying");
+        int option = rand.nextInt(3);
+        switch (option) {
+            case 0:
+                Log.i("vibration", "Vibrating");
+                break;
+            case 1:
+                //make sound with alert happen
+                Log.i("Alert", "Annoying alert");
+                break;
+            case 2:
+                //physical activity
+                Log.i("Physical Challeng", "Physical Challenge");
+                break;
+        }
     }
 
 
