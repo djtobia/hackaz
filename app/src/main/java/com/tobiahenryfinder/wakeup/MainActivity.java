@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
@@ -31,11 +32,10 @@ public class MainActivity extends AppCompatActivity {
         final EditText hoursField = (EditText)findViewById(R.id.hoursField);
         final EditText minutesField = (EditText)findViewById(R.id.minutesField);
         final EditText intervalField = (EditText) findViewById(R.id.intervalField);
-        RadioButton vibrateRB = (RadioButton) findViewById(R.id.vibrateRB);
-        RadioButton soundRB = (RadioButton) findViewById(R.id.soundRB);
+        final CheckBox vibrateRB = (CheckBox) findViewById(R.id.vibrateRB);
         SensorManager sensorManager =(SensorManager) getSystemService(Context.SENSOR_SERVICE);
         Sensor acceleromterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        RadioButton actionsRB = (RadioButton) findViewById(R.id.physicalActionRB);
+        final CheckBox actionsRB = (CheckBox) findViewById(R.id.physicalActionRB);
         if(acceleromterSensor == null){
             actionsRB.setEnabled(false);
             Log.i("No accelerometer", "This Phone has no accelerometer");
@@ -43,8 +43,7 @@ public class MainActivity extends AppCompatActivity {
         else
             Log.i("Accelerometer","This phone has an accelerometer");
 
-        RadioButton popupRB = (RadioButton) findViewById(R.id.popupsRB);
-
+        final CheckBox popupRB = (CheckBox) findViewById(R.id.popupsRB);
 
 
         goButton.setOnClickListener(new View.OnClickListener() {
@@ -100,4 +99,5 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
 }
