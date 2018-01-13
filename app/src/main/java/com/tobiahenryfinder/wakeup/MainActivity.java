@@ -33,24 +33,24 @@ public class MainActivity extends AppCompatActivity {
     public TextView timeLeft;
     public Button goButton;
     public Random rand = new Random(System.currentTimeMillis());
-
+    public CheckBox vibrateCB;
+    public CheckBox actionsCB;
+    public CheckBox popupCB;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        // final Button goButton = (Button)findViewById(R.id.goButton);
         final EditText hoursField = (EditText) findViewById(R.id.hoursField);
         final EditText minutesField = (EditText) findViewById(R.id.minutesField);
         final EditText intervalField = (EditText) findViewById(R.id.intervalField);
-
+        vibrateCB = (CheckBox) findViewById(R.id.vibrateCB);
         timeLeft = (TextView) findViewById(R.id.timeLeft);
         goButton = (Button) findViewById(R.id.goButton);
-
-        final CheckBox vibrateCB = (CheckBox) findViewById(R.id.vibrateCB);
+        popupCB = (CheckBox) findViewById(R.id.popupCB);
         SensorManager sensorManager =(SensorManager) getSystemService(Context.SENSOR_SERVICE);
         Sensor acceleromterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        final CheckBox actionsCB = (CheckBox) findViewById(R.id.physicalActionsCB);
+        actionsCB = (CheckBox) findViewById(R.id.physicalActionsCB);
 
 
         if (acceleromterSensor == null) {
@@ -66,34 +66,18 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Log.i("Button clicked", "Go button clicked");
                 if (!startWakeUp && !checkForValidEntries()) {
-                    Toast.makeText(getApplicationContext(), "Hours and Minutes must be greater than or equal to 0, but only one of them can be at a time. Interval must be >= .25", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Hours and Minutes must be greater than or equal to 0, but only one of them can be at a time. Interval must be greater than .25 but less than the total time.", Toast.LENGTH_LONG).show();
                 } else {
                     if (!startWakeUp) {
                         startWakeUp = true;
                         goButton.setText("Stop");
-
+                        popupCB.setEnabled(false);
+                        actionsCB.setEnabled(false);
+                        vibrateCB.setEnabled(false);
                         float hours = Float.parseFloat(hoursField.getText().toString());
                         float minutes = Float.parseFloat(minutesField.getText().toString());
                         float interval = Float.parseFloat(intervalField.getText().toString());
-
-
-                        vibrator.vibrate(1000);
-
-                        //testing alert dialogue
-                        AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
-                        alertDialog.setTitle("Alert");
-                        alertDialog.setMessage("BE ALARMED");
-
-                        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(getApplicationContext(), "You clicked on OK", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                        alertDialog.show();
                         startKeepThemAwake(hours, minutes, interval);
-                        //end alert
-
-
                     } else {
                         stopKeepThemAwake(false);
 
@@ -115,10 +99,46 @@ public class MainActivity extends AppCompatActivity {
                     return false;
                 } else if (hours == 0 && minutes == 0)
                     return false;
-
+                else if (interval >= (hours *60) + minutes){
+                    return false;
+                }
                 return true;
             }
         });
+
+    }
+
+    private void popupAlertWithVibrations() {
+        AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+        alertDialog.setTitle("STAY AWAKE");
+        alertDialog.setMessage("VIBRATION WON'T STOP UNTIL YOU CLICK OK");
+
+        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int which) {
+                vibrator.cancel();
+            }
+        });
+
+
+        vibrator.vibrate(3600000);
+        alertDialog.show();
+
+    }
+
+    private void popupAlertWithSound(){
+        AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+        alertDialog.setTitle("STAY AWAKE");
+        alertDialog.setMessage("SOUND WON'T STOP UNTIL YOU CLICK OK");
+
+        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int which) {
+                //stop sound
+            }
+        });
+        //make sound happen
+        alertDialog.show();
 
     }
 
@@ -130,6 +150,11 @@ public class MainActivity extends AppCompatActivity {
             timeLeft.setText("YOU DID IT");
         else
             timeLeft.setText("");
+
+
+        popupCB.setEnabled(true);
+        actionsCB.setEnabled(true);
+        vibrateCB.setEnabled(true);
     }
 
     private void startKeepThemAwake(float hours, float minutes, float interval) {
@@ -149,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
                 timeLeft.setText(text);
 
                 Log.i("time passed", String.format("%d", System.currentTimeMillis() - timeStart));
-                if ((System.currentTimeMillis() - timeStart) % intervalInMilliseconds <= 100) {
+                if ((System.currentTimeMillis() - timeStart) % intervalInMilliseconds <= 100 && (System.currentTimeMillis()-timeStart) > 1000) {
                     doSomethingAnnoying();
                 }
 
@@ -165,10 +190,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void doSomethingAnnoying() {
         Log.i("annoying", "Doing something annoying");
-        int option = rand.nextInt(3);
+        int option = 0;
         switch (option) {
             case 0:
                 Log.i("vibration", "Vibrating");
+                popupAlertWithVibrations();
                 break;
             case 1:
                 //make sound with alert happen
@@ -176,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case 2:
                 //physical activity
-                Log.i("Physical Challeng", "Physical Challenge");
+                Log.i("Physical Challenge", "Physical Challenge");
                 break;
         }
     }
