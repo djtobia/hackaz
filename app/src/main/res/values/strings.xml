@@ -1,3 +1,12 @@
 <resources>
-    <string name="app_name">WAKE UP</string>
+    <string name="app_name">WAKE THE *%#@ UP</string>
+    <string name="intro">How long would you like to stay awake?</string>
+    <string name="hours">Hours:</string>
+    <string name="minutes">Minutes:</string>
+    <string name="interval">Interval of Annoyances (in minutes):</string>
+    <string name="annoyances">Different Annoyances:</string>
+    <string name="Vibrations">Vibration</string>
+    <string name="Sound">Sound</string>
+    <string name="Actions">Physical Activities</string>
+    <string name="Popups">Popups</string>
 </resources>
