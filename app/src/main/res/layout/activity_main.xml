@@ -14,9 +14,6 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-<<<<<<< HEAD
-        android:text="Hello World!" />
-=======
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:text="@string/intro" />
@@ -120,18 +117,20 @@
         android:id="@+id/soundRB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/vibrateRB"
+        android:layout_alignBaseline="@+id/vibrateRB"
+        android:layout_alignBottom="@+id/vibrateRB"
+        android:layout_alignLeft="@+id/popupsRB"
+        android:layout_alignStart="@+id/popupsRB"
         android:text="@string/Sound" />
 
     <RadioButton
         android:id="@+id/physicalActionRB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/soundRB"
+        android:layout_alignLeft="@+id/vibrateRB"
+        android:layout_alignStart="@+id/vibrateRB"
+        android:layout_below="@+id/vibrateRB"
+        android:layout_marginTop="22dp"
         android:text="@string/Actions" />
 
     <RadioButton
@@ -153,6 +152,5 @@
         android:layout_toLeftOf="@+id/popupsRB"
         android:layout_toStartOf="@+id/popupsRB"
         android:text="ToggleButton" />
->>>>>>> 0537f851bfaeb6d9c8219237f502ce887bcb421e
 
 </RelativeLayout>
