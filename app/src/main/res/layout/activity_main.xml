@@ -108,46 +108,46 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="100dp"
-        android:layout_toEndOf="@+id/vibrate"
-        android:layout_toRightOf="@+id/vibrateRB"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="79dp"
         android:text="Start" />
 
     <CheckBox
-        android:id="@+id/vibrateRB"
+        android:id="@+id/vibrateCB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView6"
         android:layout_alignStart="@+id/textView6"
         android:layout_below="@+id/textView6"
-        android:layout_marginTop="21dp"
-        android:text="Vibration" />
+        android:layout_marginTop="32dp"
+        android:text="@string/Vibrations" />
 
     <CheckBox
-        android:id="@+id/popupsRB"
+        android:id="@+id/popupCB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/textView5"
-        android:layout_alignRight="@+id/textView5"
-        android:layout_alignTop="@+id/checkBox"
-        android:text="Pop Up" />
+        android:layout_alignLeft="@+id/textView4"
+        android:layout_alignStart="@+id/textView4"
+        android:layout_alignTop="@+id/vibrateCB"
+        android:text="@string/Popups" />
 
     <CheckBox
-        android:id="@+id/physicalActionRB"
+        android:id="@+id/physicalActionsCB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/checkBox"
-        android:layout_alignStart="@+id/checkBox"
-        android:layout_centerVertical="true"
-        android:text="Physical Activity" />
-
+        android:layout_alignEnd="@+id/textView4"
+        android:layout_alignRight="@+id/textView4"
+        android:layout_below="@+id/vibrateCB"
+        android:layout_marginTop="34dp"
+        android:text="@string/Actions" />
 
     <TextView
-        android:id="@+id/vibrationCB"
+        android:id="@+id/timeLeft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/goButton"
+        android:layout_below="@+id/physicalActionsCB"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="66dp" />
+        android:layout_marginTop="65dp" />
+
 
 </RelativeLayout>

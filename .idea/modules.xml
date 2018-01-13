@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/WAKEUP.iml" filepath="$PROJECT_DIR$/WAKEUP.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/hackaz.iml" filepath="$PROJECT_DIR$/hackaz.iml" />
       <module fileurl="file://C:\Users\djtob\Documents\WAKEUP\hackaz.iml" filepath="C:\Users\djtob\Documents\WAKEUP\hackaz.iml" />
     </modules>
   </component>

@@ -47,19 +47,19 @@ public class MainActivity extends AppCompatActivity {
         timeLeft = (TextView) findViewById(R.id.timeLeft);
         goButton = (Button) findViewById(R.id.goButton);
 
-        final CheckBox vibrateRB = (CheckBox) findViewById(R.id.vibrateRB);
+        final CheckBox vibrateCB = (CheckBox) findViewById(R.id.vibrateCB);
         SensorManager sensorManager =(SensorManager) getSystemService(Context.SENSOR_SERVICE);
         Sensor acceleromterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        final CheckBox actionsRB = (CheckBox) findViewById(R.id.physicalActionRB);
+        final CheckBox actionsCB = (CheckBox) findViewById(R.id.physicalActionsCB);
 
 
         if (acceleromterSensor == null) {
-            actionsRB.setEnabled(false);
+            actionsCB.setEnabled(false);
             Log.i("No accelerometer", "This Phone has no accelerometer");
         } else
             Log.i("Accelerometer", "This phone has an accelerometer");
 
-        final CheckBox popupRB = (CheckBox) findViewById(R.id.popupsRB);
+        final CheckBox popupCB = (CheckBox) findViewById(R.id.popupCB);
 
         goButton.setOnClickListener(new View.OnClickListener() {
             @Override
