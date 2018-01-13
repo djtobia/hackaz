@@ -56,13 +56,13 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/textView3"
         android:layout_alignBottom="@+id/textView3"
-        android:layout_marginLeft="9dp"
-        android:layout_marginStart="9dp"
+        android:layout_marginLeft="19dp"
+        android:layout_marginStart="19dp"
         android:layout_toEndOf="@+id/textView3"
         android:layout_toRightOf="@+id/textView3"
         android:width="50dp"
         android:ems="10"
-        android:inputType="number"
+        android:inputType="numberDecimal"
         android:text="0" />
 
     <EditText
@@ -76,7 +76,7 @@
         android:layout_marginStart="69dp"
         android:width="50dp"
         android:ems="10"
-        android:inputType="number"
+        android:inputType="numberDecimal"
         android:text="0" />
 
     <EditText
@@ -90,7 +90,7 @@
         android:layout_toRightOf="@+id/textView5"
         android:width="50dp"
         android:ems="10"
-        android:inputType="number"
+        android:inputType="numberDecimal"
         android:text="0" />
 
     <TextView
@@ -143,14 +143,14 @@
         android:layout_alignRight="@+id/textView"
         android:text="@string/Popups" />
 
-    <ToggleButton
-        android:id="@+id/StartButton"
+    <Button
+        android:id="@+id/goButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="60dp"
-        android:layout_toLeftOf="@+id/popupsRB"
-        android:layout_toStartOf="@+id/popupsRB"
-        android:text="ToggleButton" />
+        android:layout_marginBottom="100dp"
+        android:layout_toEndOf="@+id/vibrateRB"
+        android:layout_toRightOf="@+id/vibrateRB"
+        android:text="Start" />
 
 </RelativeLayout>
