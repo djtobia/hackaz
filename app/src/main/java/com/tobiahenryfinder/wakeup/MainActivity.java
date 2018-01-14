@@ -190,20 +190,36 @@ public class MainActivity extends AppCompatActivity {
 
     private void doSomethingAnnoying() {
         Log.i("annoying", "Doing something annoying");
-        int option = 0;
+        boolean actionHappened = false;
+        while(!actionHappened){
+        int option = rand.nextInt(3);
+
         switch (option) {
             case 0:
                 Log.i("vibration", "Vibrating");
-                popupAlertWithVibrations();
+                if(vibrateCB.isChecked()) {
+                    popupAlertWithVibrations();
+                    actionHappened = true;
+                }
                 break;
             case 1:
                 //make sound with alert happen
-                Log.i("Alert", "Annoying alert");
+                if(popupCB.isChecked()) {
+                    Log.i("Alert", "Annoying alert");
+                    //popupAlertWithSound()
+                    actionHappened = true;
+                }
                 break;
             case 2:
                 //physical activity
                 Log.i("Physical Challenge", "Physical Challenge");
+                if(actionsCB.isChecked()){
+                    //accelerometer stuff
+                    //popupAlertUntilMovement()
+                    actionHappened = true;
+                }
                 break;
+            }
         }
     }
 
