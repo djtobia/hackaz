@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         final EditText minutesField = (EditText) findViewById(R.id.minutesField);
         final EditText intervalField = (EditText) findViewById(R.id.intervalField);
         vibrateCB = (CheckBox) findViewById(R.id.vibrateCB);
+        vibrateCB.setChecked(true);
         timeLeft = (TextView) findViewById(R.id.timeLeft);
         goButton = (Button) findViewById(R.id.goButton);
         popupCB = (CheckBox) findViewById(R.id.popupCB);
