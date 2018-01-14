@@ -67,7 +67,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Log.i("Button clicked", "Go button clicked");
                 if (!startWakeUp && !checkForValidEntries()) {
-                    Toast.makeText(getApplicationContext(), "Hours and Minutes must be greater than or equal to 0, but only one of them can be at a time. Interval must be greater than .25 but less than the total time.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Hours and Minutes must be greater than or equal to 0, but only one of them can be at a time." +
+                            " Interval must be greater than .25 but less than the total time. At least 1 box must be checked.", Toast.LENGTH_LONG).show();
                 } else {
                     if (!startWakeUp) {
                         startWakeUp = true;
@@ -93,6 +94,9 @@ public class MainActivity extends AppCompatActivity {
                     return false;
                 }
 
+                if(!vibrateCB.isChecked() && !popupCB.isChecked() && !actionsCB.isChecked()){
+                    return false;
+                }
                 float hours = Float.parseFloat(hoursField.getText().toString());
                 float minutes = Float.parseFloat(minutesField.getText().toString());
                 float interval = Float.parseFloat(intervalField.getText().toString());
